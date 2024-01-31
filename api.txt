@@ -1,0 +1,18 @@
+Format
+==================================================
+url    = 127.0.0.1:8000/api/
+method = 
+data   = 
+authentication = 
+status = 
+
+Registration
+==================================================
+url    = 127.0.0.1:8000/api/registration
+method = post
+data   = {username,email,password}
+authentication = Nill
+status = Done
+
+Get Token
+==================================================
