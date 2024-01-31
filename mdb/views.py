@@ -32,18 +32,35 @@ class MovieView(ModelViewSet):
     permission_classes=[permissions.IsAuthenticated]
     
     @action(methods=["post"], detail=True)
-    def add_review(self, request, *args, **kwargs):
-        id = kwargs.get("pk")
+    def addreview(self, request, *args, **kwargs):
+        id = int(kwargs.get("pk"))
         m_obj = Movie.objects.get(id=id)
-        print(m_obj)
-        serializer = ReviewSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(owner=request.user, movie=m_obj)
-            return Response(serializer.data)
+        # print(m_obj)
+        r_obj=request.user.r_user.all().values_list("movie",flat=True)
+        print(r_obj)
+        print(type(id))
+        if id in r_obj:
+            raise serializers.ValidationError("Already Reviewd")
         else:
-            return Response(serializer.errors)
-        
-        
+            serializer = ReviewSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save(owner=request.user, movie=m_obj)
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors)
+    
+    @action(methods=["post","delete"],detail=True)
+    def addtowatch(self,request,*args, **kwargs):
+        id=int(kwargs.get("pk"))
+        m_obj=Movie.objects.get(id=id)
+        w_obj=request.user.profile.watchlist.all()
+        print(w_obj)
+        if request.method == "POST":
+            request.user.profile.watchlist.add(m_obj)
+            return Response (data="Movie Added")
+        elif request.method == "DELETE":
+            request.user.profile.watchlist.remove(m_obj)
+            return Response (data="Movie Removed")
     
     def update(self, request, *args, **kwargs):
         raise serializers.ValidationError("permission denied")
@@ -88,3 +105,4 @@ class UserProfileView(ViewSet):
     
     def destroy(self, request, *args, **kwargs):
         raise serializers.ValidationError("permission denied")
+    

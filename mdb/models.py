@@ -32,6 +32,14 @@ class Movie(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
+    
+    @property
+    def reviewcount(self):
+        return self.r_movie.count()
+    
+    @property
+    def reviews(self):
+        return self.r_movie.all()
 
     def __str__(self):
         return self.title
@@ -48,7 +56,7 @@ class Review(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     d_name = models.CharField(max_length=200)
-    profile = models.ImageField(upload_to="profileimages", default="profile.jpg")
+    profile_pic = models.ImageField(upload_to="profileimages", default="profile.jpg")
     dob = models.DateField(null=True)
     options = (("male", "male"), ("female", "female"))
     gender = models.CharField(max_length=200, choices=options, default="male")
@@ -56,6 +64,10 @@ class UserProfile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
+    
+    @property
+    def reviews(self):
+        return self.user.r_user.all()
     
     def __str__(self) -> str:
         return self.user.username

@@ -62,7 +62,23 @@ data   = {text,rating}
 authentication = token
 status = Done
 
-List Reviews
+Add to watchlist 
+==================================================
+url    = 127.0.0.1:8000/api/movie/{id}/towatch/
+method = post
+data   = nill
+authentication = Token
+status = Done
+
+remove from watchlist
+==================================================
+url    = 127.0.0.1:8000/api/movie/{id}/towatch/
+method = delete
+data   = nill
+authentication = Token
+status = Done
+
+List Reviews on UserProfile
 ==================================================
 url    = 127.0.0.1:8000/api/
 method = 
@@ -72,7 +88,7 @@ status =
 
 Update Movie review
 ==================================================
-url    = 127.0.0.1:8000/api/review/{id}
+url    = 127.0.0.1:8000/api/reviews/{id}
 method = put
 data   = {text,rating}
 authentication = Token
@@ -86,19 +102,5 @@ data   = nill
 authentication = Token
 status = Pending
 
-Add to watchlist
-==================================================
-url    = 127.0.0.1:8000/api/movie/{id}/addtowatch/
-method = post
-data   = nill
-authentication = Token
-status = Pending
 
-remove from watchlist
-==================================================
-url    = 127.0.0.1:8000/api/
-method = 
-data   = 
-authentication = 
-status = 
 
