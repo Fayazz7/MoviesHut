@@ -47,8 +47,8 @@ class Movie(models.Model):
 class Review(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="r_user")
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE, related_name="r_movie",null=True)
-    text = models.CharField(max_length=200)
-    rating = models.PositiveIntegerField(default=1,validators=[MinValueValidator(1), MaxValueValidator(5)])
+    text = models.CharField(max_length=200,blank=True)
+    rating = models.PositiveIntegerField(default=1,validators=[MinValueValidator(1), MaxValueValidator(5)],blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)

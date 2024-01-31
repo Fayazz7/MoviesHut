@@ -6,6 +6,7 @@ from mdb import views
 router = DefaultRouter()
 router.register('movie', views.MovieView, basename='movie')
 router.register('profile',views.UserProfileView,basename='profile')
+router.register('review',views.ReviewView,basename='reviews')
 
 urlpatterns = [
     path('register/', views.RegistrationView.as_view()),

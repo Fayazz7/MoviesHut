@@ -12,7 +12,7 @@ from rest_framework.decorators import action
 
 # Create your views here.
 from mdb.serializers import UserSerializer,MovieSerializer,UserProfileSerializer,ReviewSerializer
-from mdb.models import Genre,Movie,UserProfile
+from mdb.models import Genre,Movie,UserProfile,Review
 # Create your views here.
 
 class RegistrationView(APIView):
@@ -30,6 +30,15 @@ class MovieView(ModelViewSet):
     queryset=Movie.objects.all()
     authentication_classes=[authentication.TokenAuthentication]
     permission_classes=[permissions.IsAuthenticated]
+    
+    def list(self, request, *args, **kwargs):
+        qs=Movie.objects.all()
+        if "genre" in request.query_params:
+            gen=request.query_params.get("genre")
+            qs=qs.filter(genre__name__iexact=gen)
+        serializer=MovieSerializer(qs,many=True)
+        return Response (data=serializer.data)
+            
     
     @action(methods=["post"], detail=True)
     def addreview(self, request, *args, **kwargs):
@@ -106,3 +115,39 @@ class UserProfileView(ViewSet):
     def destroy(self, request, *args, **kwargs):
         raise serializers.ValidationError("permission denied")
     
+class ReviewView(ModelViewSet):
+    serializer_class=ReviewSerializer
+    queryset=Review.objects.all()
+    authentication_classes=[authentication.TokenAuthentication]
+    permission_classes=[permissions.IsAuthenticated]
+    
+    
+    def create(self, request, *args, **kwargs):
+        raise serializers.ValidationError("permission denied")
+    
+    def list(self,request,*args, **kwargs):
+        user=request.user.id
+        qs=Review.objects.filter(owner=user)
+        serializer=ReviewSerializer(qs,many=True)
+        return Response (data=serializer.data)
+    
+    def retrieve(self, request, *args, **kwargs):
+        id=kwargs.get("pk")
+        if self.get_object().owner == request.user:
+            qs=Review.objects.get(id=id)
+            serializer=ReviewSerializer(qs)
+            return Response (data=serializer.data)
+        else:
+            raise serializers.ValidationError("Permission Denied")
+        
+    def perform_update(self, serializer):
+        if self.get_object().owner == self.request.user:
+            return super().perform_update(serializer)
+        else:
+            raise serializers.ValidationError("Permission Denied")
+        
+    def perform_destroy(self, instance):
+        if self.get_object().owner == self.request.user:
+            return super().perform_destroy(instance)
+        else:
+            raise serializers.ValidationError("Permission Denied")
