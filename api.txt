@@ -12,7 +12,93 @@ url    = 127.0.0.1:8000/api/registration
 method = post
 data   = {username,email,password}
 authentication = Nill
-status = Done
+status = Done 
 
 Get Token
 ==================================================
+url    = 127.0.0.1:8000/api/token
+method = post
+data   = {username,password}
+authentication = nill
+status = Done
+
+Retrieve UserProfile
+==================================================
+url    = 127.0.0.1:8000/api/profile/{id}/
+method = get
+data   = nill
+authentication = token
+status = Done
+
+Update UserProfile
+==================================================
+url    = 127.0.0.1:8000/api/profile/{id}/
+method = put
+data   = {d_name,dob,profile,gender}
+authentication = token
+status = Done
+
+List Movies
+==================================================
+url    = 127.0.0.1:8000/api/movie/
+method = get
+data   = nill
+authentication = token
+status = Done
+
+Retrieve Movies
+==================================================
+url    = 127.0.0.1:8000/api/movie/{id}/
+method = get
+data   = nill
+authentication = token 
+status = Done
+
+Add Review to the Movie
+==================================================
+url    = 127.0.0.1:8000/api/movie/{id}/add_review/
+method = post
+data   = {text,rating}
+authentication = token
+status = Done
+
+List Reviews
+==================================================
+url    = 127.0.0.1:8000/api/
+method = 
+data   = 
+authentication = 
+status = 
+
+Update Movie review
+==================================================
+url    = 127.0.0.1:8000/api/review/{id}
+method = put
+data   = {text,rating}
+authentication = Token
+status = Pending
+
+delete movie review
+==================================================
+url    = 127.0.0.1:8000/api/review/{id}
+method = delete
+data   = nill
+authentication = Token
+status = Pending
+
+Add to watchlist
+==================================================
+url    = 127.0.0.1:8000/api/movie/{id}/addtowatch/
+method = post
+data   = nill
+authentication = Token
+status = Pending
+
+remove from watchlist
+==================================================
+url    = 127.0.0.1:8000/api/
+method = 
+data   = 
+authentication = 
+status = 
+
