@@ -1,0 +1,28 @@
+Models ---> Movie, Review, UserProfile
+
+Registration --> Done
+
+Token --> Done
+
+View UserProfile --> Done
+
+Update UserProfile --> Done
+
+List All Movies --> Done
+
+Retrieve a Specific Movie --> Done
+
+Add review --> 
+
+List Review -->
+
+update review -->
+
+delete review -->
+
+add to watch List -->
+
+view watch List -->
+
+revome watch list -->
+
