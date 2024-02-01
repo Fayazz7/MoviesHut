@@ -78,13 +78,13 @@ data   = nill
 authentication = Token
 status = Done
 
-List Reviews on UserProfile
+List Reviews 
 ==================================================
-url    = 127.0.0.1:8000/api/
-method = 
-data   = 
-authentication = 
-status = 
+url    = 127.0.0.1:8000/api/review/
+method = Get
+data   = Nill
+authentication = Token
+status = Done
 
 Update Movie review
 ==================================================
@@ -92,7 +92,7 @@ url    = 127.0.0.1:8000/api/reviews/{id}
 method = put
 data   = {text,rating}
 authentication = Token
-status = Pending
+status = Done
 
 delete movie review
 ==================================================
@@ -100,7 +100,7 @@ url    = 127.0.0.1:8000/api/review/{id}
 method = delete
 data   = nill
 authentication = Token
-status = Pending
+status = Done
 
 
 

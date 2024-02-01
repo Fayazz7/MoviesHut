@@ -43,7 +43,7 @@ class MovieView(ModelViewSet):
     @action(methods=["post"], detail=True)
     def addreview(self, request, *args, **kwargs):
         id = int(kwargs.get("pk"))
-        m_obj = Movie.objects.get(id=id)
+        m_obj = self.get_object()
         # print(m_obj)
         r_obj=request.user.r_user.all().values_list("movie",flat=True)
         print(r_obj)
