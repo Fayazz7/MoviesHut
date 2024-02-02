@@ -125,11 +125,11 @@ class ReviewView(ModelViewSet):
     def create(self, request, *args, **kwargs):
         raise serializers.ValidationError("permission denied")
     
-    # def list(self,request,*args, **kwargs):
-    #     user=request.user.id
-    #     qs=Review.objects.filter(owner=user)
-    #     serializer=ReviewSerializer(qs,many=True)
-    #     return Response (data=serializer.data)
+    def list(self,request,*args, **kwargs):
+        user=request.user.id
+        qs=Review.objects.filter(owner=user)
+        serializer=ReviewSerializer(qs,many=True)
+        return Response (data=serializer.data)
     
     def retrieve(self, request, *args, **kwargs):
         id=kwargs.get("pk")
